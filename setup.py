@@ -21,7 +21,8 @@ setup(
         'websockets',
         'passlib',
         'docopt',
-        'pyyaml'
+        'pyyaml',
+        'aioredis'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -47,7 +48,8 @@ setup(
             'packet_logger_plugin = hbmqtt.plugins.logging:PacketLoggerPlugin',
             'auth_anonymous = hbmqtt.plugins.authentication:AnonymousAuthPlugin',
             'auth_file = hbmqtt.plugins.authentication:FileAuthPlugin',
-            'topic_taboo = hbmqtt.plugins.topic_checking:TopicTabooPlugin',
+            'hearbeat_plugin = hbmqtt.plugins.heartbeat:HeartbeatPlugin',
+            # 'topic_taboo = hbmqtt.plugins.topic_checking:TopicTabooPlugin',
             'broker_sys = hbmqtt.plugins.sys.broker:BrokerSysPlugin',
         ],
         'hbmqtt.client.plugins': [

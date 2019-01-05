@@ -8,3 +8,6 @@ auth:
 plugins:
   - auth_file
   - auth_anonymous
+redis_heartbeat:
+  url: redis://localhost
+  key: heartbeat
