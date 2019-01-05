@@ -20,14 +20,16 @@ class HeartbeatPlugin:
         self.pool = future.result()
         self.pool.execute('DEL', self.key)     
 
-    async def on_broker_client_connected(self, *args, **kwargs):
+    @asyncio.coroutine
+    def on_broker_client_connected(self, *args, **kwargs):
         client_id = kwargs.get('client_id', None)
         self.context.logger.info(f"client {client_id} connected to server")
         if client_id:
-            await self.pool.execute('HSET', self.key, client_id, 1)
-
-    async def on_broker_client_disconnected(self, *args, **kwargs):
+            yield from self.pool.execute('HSET', self.key, client_id, 1)
+    
+    @asyncio.coroutine
+    def on_broker_client_disconnected(self, *args, **kwargs):
         client_id = kwargs.get('client_id', None)
         self.context.logger.info(f"client {client_id} disconnected to server")
         if client_id:
-            await self.pool.execute('HDEL', self.key, client_id)
+            yield from self.pool.execute('HDEL', self.key, client_id)
